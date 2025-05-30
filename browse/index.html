@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Markdown Viewer</title>
+    <title>Markdown Browser</title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <header>
-        <button id="menu-toggle">☰ Files</button>
-        <h1>Markdown Viewer</h1>
+        <button id="menu-toggle">☰</button>
+        <h1>Markdown Browser</h1>
     </header>
     <div id="container">
         <nav id="navigation">
-            <h2>Files</h2>
+            <input type="text" id="search" placeholder="Search files..." />
             <ul id="file-list"></ul>
         </nav>
         <main id="content">
@@ -23,7 +23,7 @@
     </div>
 
     <script>
-        const markdownDir = '../download/';
+        const listPath = '../list.txt'; // Set this to your list.txt path
     </script>
     <script src="script.js"></script>
 </body>
