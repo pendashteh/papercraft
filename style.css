@@ -4,7 +4,34 @@ body {
     color: #24292e;
     margin: 0;
     background-color: #f6f8fa;
-    display: flex; /* For sidebar layout */
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #0366d6;
+    color: white;
+    padding: 0.75em 1em;
+}
+
+header h1 {
+    font-size: 1.2em;
+    margin: 0;
+}
+
+#menu-toggle {
+    font-size: 1.2em;
+    background: none;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 0.5em;
+}
+
+#container {
+    display: flex;
+    flex-direction: row;
 }
 
 #navigation {
@@ -12,7 +39,7 @@ body {
     padding: 20px;
     background-color: #fff;
     border-right: 1px solid #e1e4e8;
-    height: 100vh; /* Full height */
+    height: 100vh;
     overflow-y: auto;
     box-sizing: border-box;
 }
@@ -47,14 +74,12 @@ body {
 
 main#content {
     max-width: 800px;
-    margin: 0;
     padding: 30px 40px;
     background-color: #fff;
     border-radius: 6px;
-    /* box-shadow: 0 1px 3px rgba(27,31,35,.12), 0 1px 2px rgba(27,31,35,.24); */
-    flex-grow: 1; /* Takes remaining space */
-    height: 100vh; /* Full height */
-    overflow-y: auto; /* Scroll content */
+    flex-grow: 1;
+    height: 100vh;
+    overflow-y: auto;
     box-sizing: border-box;
 }
 
@@ -73,13 +98,11 @@ h1 { font-size: 2em; }
 h2 { font-size: 1.5em; }
 h3 { font-size: 1.25em; }
 
-/* Paragraphs */
 p {
     margin-top: 0;
     margin-bottom: 16px;
 }
 
-/* Links */
 a {
     color: #0366d6;
     text-decoration: none;
@@ -88,13 +111,11 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Lists */
 ul, ol {
     padding-left: 2em;
     margin-bottom: 16px;
 }
 
-/* Code blocks */
 pre {
     background-color: #f6f8fa;
     padding: 16px;
@@ -108,20 +129,17 @@ code {
     font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
     font-size: 85%;
     padding: .2em .4em;
-    margin: 0;
     background-color: rgba(27,31,35,.05);
     border-radius: 3px;
 }
 
 pre code {
-    font-size: 100%; /* Reset for code inside pre */
+    font-size: 100%;
     padding: 0;
-    margin: 0;
     background-color: transparent;
     border-radius: 0;
 }
 
-/* Blockquotes */
 blockquote {
     margin: 0 0 16px 0;
     padding: 0 1em;
@@ -129,7 +147,6 @@ blockquote {
     border-left: .25em solid #dfe2e5;
 }
 
-/* Tables */
 table {
     border-collapse: collapse;
     margin-bottom: 16px;
@@ -148,36 +165,39 @@ th {
     background-color: #f6f8fa;
 }
 
-/* Horizontal Rule */
 hr {
     height: .25em;
-    padding: 0;
     margin: 24px 0;
     background-color: #e1e4e8;
     border: 0;
 }
 
-/* Images */
 img {
     max-width: 100%;
-    box-sizing: content-box;
     background-color: #fff;
 }
 
-/* Responsive adjustments */
+/* Mobile styles */
 @media (max-width: 768px) {
-    body {
+    #container {
         flex-direction: column;
     }
+
     #navigation {
+        display: none;
         width: 100%;
         height: auto;
         border-right: none;
         border-bottom: 1px solid #e1e4e8;
     }
+
+    #navigation.show {
+        display: block;
+    }
+
     main#content {
-        margin: 0;
-        border-radius: 0;
         padding: 20px;
+        height: auto;
+        border-radius: 0;
     }
 }
