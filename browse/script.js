@@ -6,26 +6,31 @@ const nav = document.getElementById('navigation');
 
 
 function resolveFilePath(filePath) {
-    // Resolve relative to listPath (not to index.html!)
+    // Get absolute URL to list.txt
     const listURL = new URL(listPath, window.location.href);
-    const listDir = listURL.href.substring(0, listURL.href.lastIndexOf('/') + 1);
 
-    // Encode each segment of the file path
+    // Get base directory of list.txt
+    const listBaseDir = listURL.href.substring(0, listURL.href.lastIndexOf('/') + 1);
+
+    // Encode each path segment safely
     const encodedPath = filePath
         .split('/')
-        .map(segment => encodeURIComponent(segment))
+        .map(encodeURIComponent)
         .join('/');
 
-    return listDir + encodedPath;
+    // Construct full resolved and encoded URL
+    return listBaseDir + encodedPath;
 }
 
 
 async function loadMarkdown(filePath) {
     const resolvedURL = resolveFilePath(filePath);
-    console.log("Loading markdown:", resolvedURL);
+    console.log("Raw filePath:", filePath);
+    console.log("Resolved fetch URL:", resolvedURL);
+
     try {
         const response = await fetch(resolvedURL);
-        console.log("Fetch status:", response.status, response.statusText);
+        console.log("Fetch response status:", response.status);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const markdownText = await response.text();
         contentElement.innerHTML = marked.parse(markdownText);
