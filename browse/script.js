@@ -83,8 +83,11 @@ async function fetchFileList() {
 }
 
 function loadContentFromHash() {
-    const hash = window.location.hash.substring(1);
-    if (hash) loadMarkdown(hash);
+    const rawHash = window.location.hash.substring(1);
+    if (rawHash) {
+        const decodedPath = decodeURIComponent(rawHash); // Handles %20 in case user copy-pasted a URL
+        loadMarkdown(decodedPath);
+    }
 }
 
 window.addEventListener('hashchange', loadContentFromHash);
