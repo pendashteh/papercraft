@@ -12,10 +12,10 @@ Papercrate lets you view and search markdown files from a list — no build tool
 - You set the path to that file using a single line in `browse/index.html`:
   ```html
   <script>
-    const listPath = '../docs/list.txt';
+    const listPath = 'papercraft.txt';
   </script>
   ```
-- Papercrate loads `list.txt`, parses the entries, and resolves each path **relative to where `list.txt` is located** — not relative to the viewer (`index.html`).
+- Papercrate loads `papercraft.txt`(or any other name for that matter), parses the entries, and resolves each path **relative to where it is located** — not relative to the viewer (`index.html`).
 
 ---
 
@@ -24,7 +24,7 @@ Papercrate lets you view and search markdown files from a list — no build tool
 ```
 /project-root/
 ├── docs/
-│   ├── list.txt
+│   ├── papercraft.txt
 │   ├── Welcome.md
 │   └── Reference Notes.md
 ├── browse/
@@ -33,7 +33,7 @@ Papercrate lets you view and search markdown files from a list — no build tool
 │   └── style.css
 ```
 
-### `list.txt` (inside `/docs/`)
+### `papercraft.txt` (inside `/docs/`)
 ```
 Welcome.md
 Reference Notes.md
@@ -88,7 +88,7 @@ These paths are interpreted relative to `/docs/`, so:
 
 ## 🧪 Example
 
-If `list.txt` is at `/docs/list.txt`, and it includes:
+If `papercraft.txt` is at `/docs/papercraft.txt`, and it includes:
 
 ```
 Intro.md
@@ -118,7 +118,7 @@ You can host Papercrate on:
 
 ### 🧩 Key Architectural Rule
 
-> File paths listed in `list.txt` are resolved **relative to where `list.txt` lives**, not where the viewer is.
+> File paths listed in `list.txt` are resolved **relative to where `papercraft.txt` lives**, not where the viewer is.
 
 This makes it portable, modular, and location-independent.
 
