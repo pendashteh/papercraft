@@ -4,11 +4,21 @@ const searchInput = document.getElementById('search');
 const menuToggle = document.getElementById('menu-toggle');
 const nav = document.getElementById('navigation');
 
-// Converts "download/sfd.md" to absolute path based on list.txt location
+
 function resolveFilePath(filePath) {
+    // Resolve relative to listPath (not to index.html!)
     const listURL = new URL(listPath, window.location.href);
-    return new URL(filePath, listURL).href;
+    const listDir = listURL.href.substring(0, listURL.href.lastIndexOf('/') + 1);
+
+    // Encode each segment of the file path
+    const encodedPath = filePath
+        .split('/')
+        .map(segment => encodeURIComponent(segment))
+        .join('/');
+
+    return listDir + encodedPath;
 }
+
 
 async function loadMarkdown(filePath) {
     const resolvedURL = resolveFilePath(filePath);
@@ -43,7 +53,7 @@ function createListItem(filePath) {
 async function fetchFileList() {
     try {
         const response = await fetch(listPath);
-        if (!response.ok) throw new Error("Missing list.txt");
+        if (!response.ok) throw new Error("Missing listPath. Provided: "+listPath);
         const text = await response.text();
         const files = text.split('\n').map(line => line.trim()).filter(Boolean);
 
