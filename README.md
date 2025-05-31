@@ -1,63 +1,138 @@
-# 📄 Static Markdown Viewer
+# 📦 Papercrate
 
-A clean, mobile-first markdown file browser built entirely with HTML, CSS, and JavaScript. No server-side logic required.
+**A zero-build, static, mobile-friendly markdown browser.**
 
----
-
-## 📁 Folder Structure
-
-    /
-    ├── index.html            → Redirects to `/view/index.html`
-    ├── download/
-    │   ├── index.txt         → List of markdown files, one per line
-    │   └── *.md              → Your actual markdown files
-    └── view/
-        ├── index.html        → Markdown viewer
-        ├── style.css         → Styling for layout and markdown
-        ├── script.js         → Logic to load and display markdown
-        └── README.md         → This file
+Papercrate lets you view and search markdown files from a list — no build tools, no server logic. Just drop in your `.md` files, point to a `list.txt`, and you’re ready to go.
 
 ---
 
-## 🚀 How to Use
+## 🚀 How It Works
 
-1. Place your `.md` files in the `/download/` folder.
-2. Create a `download/index.txt` with filenames, one per line:
-
-       README.md
-       project-notes.md
-       changelog.md
-
-3. Open `/index.html` in a browser, or serve with:
-
-       npx serve .
-
-4. Click filenames in the sidebar to view.
+- You create a plain text file (e.g. `list.txt`) that contains **relative paths to markdown files**.
+- You set the path to that file using a single line in `browse/index.html`:
+  ```html
+  <script>
+    const listPath = '../docs/list.txt';
+  </script>
+  ```
+- Papercrate loads `list.txt`, parses the entries, and resolves each path **relative to where `list.txt` is located** — not relative to the viewer (`index.html`).
 
 ---
 
-## 🛠 Optional: Generate `index.txt`
+## 📁 Example Folder Structure
 
-**macOS/Linux:**
+```
+/project-root/
+├── docs/
+│   ├── list.txt
+│   ├── Welcome.md
+│   └── Reference Notes.md
+├── browse/
+│   ├── index.html      ← viewer
+│   ├── script.js
+│   └── style.css
+```
 
-    cd download && ls *.md > index.txt
+### `list.txt` (inside `/docs/`)
+```
+Welcome.md
+Reference Notes.md
+topics/Deep Dive.md
+```
 
-**Windows (CMD):**
+These paths are interpreted relative to `/docs/`, so:
 
-    cd download
-    dir /b *.md > index.txt
+- `Welcome.md` → `/docs/Welcome.md`
+- `topics/Deep Dive.md` → `/docs/topics/Deep%20Dive.md`
 
 ---
 
 ## ✅ Features
 
-- Purely static: works on any static host (GitHub Pages, Netlify, etc.)
-- Mobile responsive layout
-- Client-side routing via `#hash`
-- `.txt`-based index for easy editing
+- Purely static — works with GitHub Pages, Netlify, or local file servers
+- Mobile-first, responsive UI
+- Fully client-side
+- Spaces and special characters in file names are supported
+- Live search in the file list
+- Markdown rendered with GitHub-style layout
+- Hash-based navigation (shareable URLs)
 
 ---
 
-## 🔐 Privacy
+## 🛠 Setup Instructions
 
-All files are loaded locally via JavaScript; no data is sent or tracked.
+1. **Create your markdown files** anywhere (e.g., `/docs/`, `/notes/`, `/files/`)
+2. **Create a `list.txt` file** next to your markdowns, listing file paths relative to its own location:
+   ```
+   Chapter 1.md
+   Section/Advanced Topics.md
+   ```
+3. **Set the `listPath`** in `/browse/index.html`:
+   ```html
+   <script>
+     const listPath = '../docs/list.txt'; // Adjust this path as needed
+   </script>
+   ```
+
+4. Serve the project root with any static file server:
+   ```bash
+   python3 -m http.server
+   ```
+
+5. Visit:
+   ```
+   http://localhost:8000/browse/index.html
+   ```
+
+---
+
+## 🧪 Example
+
+If `list.txt` is at `/docs/list.txt`, and it includes:
+
+```
+Intro.md
+Concepts/How It Works.md
+```
+
+Then `script.js` will fetch:
+- `/docs/Intro.md`
+- `/docs/Concepts/How%20It%20Works.md`
+
+Even if `index.html` is at `/browse/index.html`.
+
+---
+
+## 📦 Deployment
+
+You can host Papercrate on:
+
+- GitHub Pages (static hosting)
+- Netlify / Vercel
+- Local servers (`npx serve`, `http-server`, etc.)
+- Even file:// URLs with relaxed browser security
+
+---
+
+## ⚙️ Developer Notes
+
+### 🧩 Key Architectural Rule
+
+> File paths listed in `list.txt` are resolved **relative to where `list.txt` lives**, not where the viewer is.
+
+This makes it portable, modular, and location-independent.
+
+---
+
+## 🎨 Customization Ideas
+
+- 🌓 Add dark mode
+- 🔍 Index and search inside markdown contents
+- 🧾 Support frontmatter (title, tags, etc.)
+- 📂 Auto-expand folder-style file views
+
+---
+
+## 🪪 License
+
+MIT — free to use, adapt, and share.
